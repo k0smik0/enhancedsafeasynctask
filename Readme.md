@@ -1,0 +1,24 @@
+# Enhanced SafeAsyncTask
+This is an enhanced version of [roboguice's SafeAsyncTask][1], 
+ but providing polymorphic behaviour for subclasses: so you can 
+ declare different onException method, for every different exception type
+ you would handle.  
+
+So, don't override onException(Exception e) with some internal logic
+in order to know and handle call's exceptions, but declare as below:
+ <pre>
+ public class MySafeAsyncTask extends EnhancedSafeAsyncTask {
+ 	public String call() throws MyException1,MyException2 {
+ 		//code
+ 	}
+ 	protected void onException(MyException1 e) throws RuntimeException {
+ 		//code for ui
+ 	}
+ 	protected void onException(MyException2 e) throws RuntimeException {
+ 		//code for ui
+ 	}
+ }
+ </pre>
+ 
+ That's all, folkies!
+ ;D
