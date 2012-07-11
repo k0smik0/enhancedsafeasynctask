@@ -6,7 +6,7 @@
 	<property name="vendor" value="Massimiliano Leone - k0smik0"/>
 	<property name="version" value="0.1"/>
 	<property name="copyright" value="Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net"/>
-	<property name="license.file" value="license_lgpl3.txt"/>
+	<property name="license.file" value="COPYING.txt"/>
 	<property name="license.url" value="http://www.gnu.org/licenses/lgpl.txt"/>
 	<property name="docurl" value="https://github.com/k0smik0/enhancedsafeasynctask"/>
 	
