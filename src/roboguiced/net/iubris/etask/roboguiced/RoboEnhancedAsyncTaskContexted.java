@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * EnhancedRoboAsyncTask.java is part of 'Enhancedsafeasynctask'.
+ * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
+ * RoboEnhancedAsyncTaskContexted.java is part of 'Enhancedsafeasynctask'.
  * 
  * 'Enhancedsafeasynctask' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,7 +22,6 @@ package net.iubris.etask.roboguiced;
 import java.util.concurrent.Executor;
 
 import net.iubris.etask.EnhancedSafeAsyncTaskContexted;
-
 import roboguice.RoboGuice;
 import android.content.Context;
 import android.os.Handler;
@@ -33,24 +32,24 @@ import android.os.Handler;
  * @author k0smik0
  * @param <ResultT>
  */
-public abstract class RoboEnhancedAsyncTask<ResultT> extends EnhancedSafeAsyncTaskContexted<ResultT> {
+public abstract class RoboEnhancedAsyncTaskContexted<ResultT> extends EnhancedSafeAsyncTaskContexted<ResultT> {
 
-    protected RoboEnhancedAsyncTask(Context context) {
+    protected RoboEnhancedAsyncTaskContexted(Context context) {
         super(context);
         RoboGuice.getInjector(context).injectMembers(this);
     }
 
-    protected RoboEnhancedAsyncTask(Context context, Handler handler) {
+    protected RoboEnhancedAsyncTaskContexted(Context context, Handler handler) {
         super(context, handler);
         RoboGuice.getInjector(context).injectMembers(this);
     }
 
-    protected RoboEnhancedAsyncTask(Context context, Handler handler, Executor executor) {
+    protected RoboEnhancedAsyncTaskContexted(Context context, Handler handler, Executor executor) {
         super(context, handler, executor);
         RoboGuice.getInjector(context).injectMembers(this);
     }
 
-    protected RoboEnhancedAsyncTask(Context context, Executor executor) {
+    protected RoboEnhancedAsyncTaskContexted(Context context, Executor executor) {
         super(context, executor);
         RoboGuice.getInjector(context).injectMembers(this);
     }
