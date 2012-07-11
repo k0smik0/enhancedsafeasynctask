@@ -20,8 +20,16 @@ in order to know and handle call's exceptions, <br/>but declare as below:
  	}
  }
  </pre>
- 
- That's all, folkies!
- ;D
+
+  
+Still inspired to SafeAsyncTask, there is a [Context][2]-ed version, EnhancedSafeAsyncTaskContexted.java
+  
+Finally, a roboguice capable version is RoboEnhancedAsyncTaskContexted
+  
+  
+  
+     
+That's all, folkies ;D !
  
  [1]: http://code.google.com/p/roboguice/source/browse/roboguice/src/main/java/roboguice/util/SafeAsyncTask.java
+ [2]: http://developer.android.com/reference/android/content/Context.html
