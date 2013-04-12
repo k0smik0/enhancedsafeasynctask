@@ -1,4 +1,4 @@
-<project name="Enhancedsafeasynctask" default="jars">
+<project name="Enhancedsafeasynctask" default="jar-core">
 	<!-- change this as your own	-->
 	
 	<property name="name" value="${ant.project.name}"/>
@@ -20,58 +20,55 @@
 	<property name="build.dir" value="build" />	
 	
 	<property name="jar-core.file" value="${build.dir}/jars/enhancedsafeasynctask.jar" />
+	<property name="jar-contexted.file" value="${build.dir}/jars/enhancedsafeasynctask-contexted.jar" />
 	<!--property name="jar-roboguiced.file" value="${build.dir}/jars/enhancedsafeasynctask-roboguiced.jar" /-->
 				
 	<path id="classpath-core">
 		<fileset dir="${android-path}/platforms/android-${android-sdk-target-version}/">
 			<include name="android*.jar"/>
 		</fileset>
+		<fileset dir="libs">
+			<include name="mirror*.jar"/>
+		</fileset>		
 	</path>
 				
-	<!--
-	<path id="classpath-roboguiced">
-		<fileset dir="${roboguice-libs}">
-			<include name="javax.inject.jar"/>
-			<include name="sisu-guice-3.0.3-no_aop.jar"/>
-			<include name="roboguice-2.0.jar"/>
-		</fileset>
+	<path id="classpath-contexted">
 		<fileset dir=".">
 			<include name="${jar-core.file}"/>
 		</fileset>
-	</path>-->
+	</path>
 
 	<target name="clean-core">
 		<delete dir="${build.dir}/classes/core"/>
 		<delete file="${jar-core.file}"/>
 	</target>
 	
-	<!--
-	<target name="clean-roboguiced">
-		<delete dir="${build.dir}/classes/roboguiced"/>
-		<delete file="${jar-roboguiced.file}"/>
+	<target name="clean-contexted">
+		<delete dir="${build.dir}/classes/contexted"/>
+		<delete file="${jar-contexted.file}"/>
 	</target>
-	-->
 	
-	<target name="clean" depends="clean-core"/> <!--, clean-roboguiced"/-->	
+	<target name="clean" depends="clean-core, clean-contexted"/>	
 	
 	<target name="compile-core">
 		<mkdir dir="${build.dir}/classes/core"/>
 		<javac destdir="${build.dir}/classes/core" includeantruntime="false">
-			<src path="${src.dir}/core" />
+			<!--src path="${src.dir}/core" /-->
+			<src path="${src.dir}" />
 			<include name="**/*.java"/>
 			<classpath refid="classpath-core"/>
 		</javac>
 	</target>
 	
-	<!--target name="compile-roboguiced" depends="jar-core">		
-		<mkdir dir="${build.dir}/classes/roboguiced"/>
-		<javac destdir="${build.dir}/classes/roboguiced" includeantruntime="false">
-			<src path="${src.dir}/roboguiced" />
+	<target name="compile-contexted" depends="jar-core">		
+		<mkdir dir="${build.dir}/classes/contexted"/>
+		<javac destdir="${build.dir}/classes/contexted" includeantruntime="false">
+			<src path="${src.dir}/contexted" />
 			<include name="**/*.java"/>
 			<classpath refid="classpath-core"/>
-			<classpath refid="classpath-roboguiced"/>			
+			<classpath refid="classpath-contexted"/>			
 		</javac>
-	</target-->
+	</target>
 	
 	<target name="jar-core" depends="clean-core, compile-core">
 		<mkdir dir="${build.dir}/jars/"/>
@@ -89,9 +86,9 @@
 		</jar>
 	</target>
 	
-	<!--target name="jar-roboguiced" depends="clean-roboguiced, compile-roboguiced">
+	<target name="jar-contexted" depends="clean-contexted, compile-contexted">
 		<mkdir dir="${build.dir}/jars/"/>
-		<jar destfile="${jar-roboguiced.file}" basedir="${build.dir}/classes/roboguiced">
+		<jar destfile="${jar-contexted.file}" basedir="${build.dir}/classes/contexted">
 			<manifest>
 				<attribute name="Built-By" value="${user}" />    
         <attribute name="Bundle-Name" value="${name}" />
@@ -103,7 +100,7 @@
 			</manifest>			
 			<metainf dir="." includes="${license.file}"/>
 		</jar>
-	</target-->
+	</target>
 	
-	<target name="jars" depends="jar-core"/><!--, jar-roboguiced"/-->
+	<target name="jars" depends="jar-core, jar-contexted"/>
 </project>

@@ -21,6 +21,7 @@ package net.iubris.etask.test;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 public class TestTask extends AbstractTestTask {
@@ -35,9 +36,11 @@ public class TestTask extends AbstractTestTask {
 	private int number;
 
 	@Override
-	public String call() throws OddNumberException, EvenNumberException  {
+	public String call() throws GreaterThanFiftyException, OddNumberException, EvenNumberException  {
 		number = (int) Math.floor( (Math.random()*100) );
-		System.out.println(number);
+		Log.d("TestTask","number:" +number);
+		if (number>50)
+			throw new GreaterThanFiftyException();
 		if (number%2 ==0) // even
 			throw new EvenNumberException();	
 		throw new OddNumberException();

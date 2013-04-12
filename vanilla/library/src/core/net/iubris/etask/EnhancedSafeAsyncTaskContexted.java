@@ -40,18 +40,18 @@ public abstract class EnhancedSafeAsyncTaskContexted<ResultT> extends EnhancedSa
         super(handler);
         this.context = context;
     }
+    
+    protected EnhancedSafeAsyncTaskContexted(Context context, Executor executor) {
+        super(executor);
+        this.context = context;
+    }
 
     protected EnhancedSafeAsyncTaskContexted(Context context, Handler handler, Executor executor) {
         super(handler, executor);
         this.context = context;
     }
 
-    protected EnhancedSafeAsyncTaskContexted(Context context, Executor executor) {
-        super(executor);
-        this.context = context;
-    }
-
-    protected Context getContext() {
+    public Context getContext() {
         return context;
     }
 }

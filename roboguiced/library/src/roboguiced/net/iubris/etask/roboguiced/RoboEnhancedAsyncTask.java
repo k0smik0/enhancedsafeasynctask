@@ -21,10 +21,8 @@ package net.iubris.etask.roboguiced;
 
 import java.util.concurrent.Executor;
 
-import net.iubris.mirror.ExceptionHandler;
-import net.iubris.mirror.OnExceptionProvided;
-
-import roboguice.util.RoboAsyncTask;
+import net.iubris.etask.EnhancedSafeAsyncTaskContexted;
+import roboguice.RoboGuice;
 import android.content.Context;
 import android.os.Handler;
 /**
@@ -34,77 +32,51 @@ import android.os.Handler;
  * @author k0smik0
  * @param <ResultT>
  */
-public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<ResultT> {
-
-	protected RoboEnhancedAsyncTask(Context context, Executor executor) {
-		super(context, executor);
-	}
-	protected RoboEnhancedAsyncTask(Context context, Handler handler,
-			Executor executor) {
-		super(context, handler, executor);
-	}
-	protected RoboEnhancedAsyncTask(Context context, Handler handler) {
-		super(context, handler);
-	}
+//public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<ResultT> {
+public abstract class RoboEnhancedAsyncTask<ResultT> extends EnhancedSafeAsyncTaskContexted<ResultT> {	
+	
+	
 	protected RoboEnhancedAsyncTask(Context context) {
-		super(context);
-	}
-
-	@Override
-	protected void onException(Exception e) throws RuntimeException {
-		ExceptionHandler.findBestMatchException(e, (OnExceptionProvided) this);
-	}
-	
-	
-	/*
-	@Inject static protected Provider<Context> contextProvider;
-    @Inject static protected Provider<ContextScope> scopeProvider;
-    
-    protected ContextScope scope = scopeProvider.get();
-    protected Context context = contextProvider.get();
-	
-    protected RoboEnhancedAsyncTask(Context context) {
         super(context);
         RoboGuice.getInjector(context).injectMembers(this);
     }
 
     protected RoboEnhancedAsyncTask(Context context, Handler handler) {
-        super(context, handler);
+        super(context,handler);
         RoboGuice.getInjector(context).injectMembers(this);
     }
 
     protected RoboEnhancedAsyncTask(Context context, Handler handler, Executor executor) {
-        super(context, handler, executor);
+        super(context,handler, executor);
         RoboGuice.getInjector(context).injectMembers(this);
     }
 
     protected RoboEnhancedAsyncTask(Context context, Executor executor) {
-        super(context, executor);
+        super(context,executor);
         RoboGuice.getInjector(context).injectMembers(this);
     }
+
+	/*
+	@Override
+	protected void onException(Exception e) throws RuntimeException {
+		Method m = ExceptionDispatcher.findBestMatchException(e, this, "onException");
+		try {
+			if (m.isAccessible()) {
+				m.invoke(this, e);
+				return;
+			}
+			m.setAccessible(true);
+			m.invoke(this, e);
+			m.setAccessible(false);
+			return;						
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		} catch (InvocationTargetException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e1) {
+			e1.printStackTrace();
+		}
+	}
+	*/
     
-    @Override
-    protected Task<ResultT> newTask() {
-//    	return new RoboTask<ResultT>(this);
-        return new RoboTask(this);
-    }
-
-//    protected class RoboTask<ResultT>> extends EnhancedSafeAsyncTaskContexted.Task<ResultT> {
-    protected class RoboTask extends EnhancedSafeAsyncTaskContexted.Task<ResultT> {
-//    	public RoboTask(EnhancedSafeAsyncTaskContexted parent) {
-        public RoboTask(EnhancedSafeAsyncTaskContexted<ResultT> parent) {
-            super(parent);
-        }
-
-        @Override
-        protected ResultT doCall() throws Exception {
-            try {
-                scope.enter(context);
-                return super.doCall();
-            } finally {
-                scope.exit(context);
-            }
-        }
-    }
-    */
 }

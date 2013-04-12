@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * AbstractTestTask.java is part of 'EnhancedAsyncTask'.
+ * AbstractRoboTestTask.java is part of 'EnhancedAsyncTask'.
  * 
  * 'EnhancedAsyncTask' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,36 +17,35 @@
  * along with 'EnhancedAsyncTask' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.etask.test;
+package net.iubris.etaskrobo.test;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-import net.iubris.etask.EnhancedSafeAsyncTaskContexted;
+import net.iubris.etask.roboguiced.RoboEnhancedAsyncTask;
 
-public abstract class AbstractTestTask extends EnhancedSafeAsyncTaskContexted<String> {
-
-	protected AbstractTestTask(Context context) {
+public abstract class AbstractTestRoboTask 
+extends RoboEnhancedAsyncTask<String> {
+//extends RoboAsyncTask<String> {
+	
+	public AbstractTestRoboTask(Context context) {
 		super(context);
 	}
-	
+
 	protected void onException(OddNumberException e) throws RuntimeException {
-//		super.onException(e);
-//		System.out.println("nfe");
-		Log.d("AbstractTestTask","OddNumberException");
+		Log.d("AbstractRoboTestTask","OddNumberException");
 		Toast.makeText(context, "OddNumberException",Toast.LENGTH_SHORT).show();
 	}
 	
 	protected void onException(EvenNumberException e) throws RuntimeException {
-//		super.onException(e);
-		Log.d("AbstractTestTask","EvenNumberException");
+		Log.d("AbstractRoboTestTask","EvenNumberException");
 		Toast.makeText(context, "EvenNumberException",Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
 	protected void onException(Exception arg0) throws RuntimeException {
-//		super.onException(arg0); // don't want print stack trace
-		Log.d("AbstractTestTask","Exception");
+//		super.onException(arg0);
+		Log.d("AbstractRoboTestTask","Exception");
 		Toast.makeText(context, "Exception",Toast.LENGTH_SHORT).show();
 	}
 }

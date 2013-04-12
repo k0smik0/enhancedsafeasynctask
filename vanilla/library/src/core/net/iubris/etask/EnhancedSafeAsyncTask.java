@@ -30,6 +30,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
+import net.iubris.mirror.ExceptionDispatcher;
+
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -267,16 +269,19 @@ public abstract class EnhancedSafeAsyncTask<ResultT> implements Callable<ResultT
                     if( e instanceof InterruptedException || e instanceof InterruptedIOException )
                         parent.onInterrupted(e);
                     else {
-                        // old
-                        //parent.onException(e);                    	
-                    	Method bestMatchedMethod = Task.findBestMatchException(e,parent);
-						if (!(bestMatchedMethod.isAccessible())) {
-	                        bestMatchedMethod.setAccessible(true);
-	                        bestMatchedMethod.invoke(parent,e);
-	                        bestMatchedMethod.setAccessible(false);
-                        } else {
-                        	bestMatchedMethod.invoke(parent,e);
-                        }
+                    	Method bestMatchedMethod = ExceptionDispatcher.findBestMatchException(e, parent, "onException");
+                    	if (bestMatchedMethod!=null) {
+							if (!(bestMatchedMethod.isAccessible())) {
+		                        bestMatchedMethod.setAccessible(true);
+		                        bestMatchedMethod.invoke(parent,e);
+		                        bestMatchedMethod.setAccessible(false);
+	                        } else {
+	                        	bestMatchedMethod.invoke(parent,e);
+	                        }
+                    	} else {
+                            // old
+                            parent.onException(e);
+                    	}
                     }
                     return null;
                 }
@@ -378,6 +383,7 @@ System.out.println("superclass: "+handlerClass.getSimpleName());
         }
         */
         // NEW, calling onException(Exception e) if no other better found 
+        /*
         private static <ResultT> Method findBestMatchException(Exception throwable, EnhancedSafeAsyncTask<ResultT> self) {
         	Class<?> handlerClass = self.getClass();
         	Class<?> founderClass = EnhancedSafeAsyncTask.class;
@@ -412,6 +418,7 @@ System.out.println("sorry, calling: "+method.getName()+"(Exception e)");
     	    	}
     	    } while (true);
         }
+        */
         
     }
     

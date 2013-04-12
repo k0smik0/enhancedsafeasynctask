@@ -34,6 +34,7 @@
 		</fileset>
 		<fileset dir="${core-libs}">
 			<include name="mirror*.jar"/>
+			<include name="enhanc*.jar"/>
 		</fileset>
 	</path>
 				

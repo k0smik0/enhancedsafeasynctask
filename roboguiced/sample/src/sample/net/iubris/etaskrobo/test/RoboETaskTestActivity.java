@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * EvenNumberException.java is part of 'EnhancedAsyncTask'.
+ * RoboETaskTestActivity.java is part of 'EnhancedAsyncTask'.
  * 
  * 'EnhancedAsyncTask' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,10 +17,29 @@
  * along with 'EnhancedAsyncTask' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.etask.test;
+package net.iubris.etaskrobo.test;
 
-public class EvenNumberException extends Exception {
+import net.iubris.etaskrobo.R;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
+public class RoboETaskTestActivity extends RoboActivity {
 	
-	private static final long serialVersionUID = 761031965316788743L;
+	@InjectView(R.id.button1) private Button button;
+	
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		
+		button.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				new TestRoboTask(RoboETaskTestActivity.this).execute();
+			}
+		});
+	};
 }

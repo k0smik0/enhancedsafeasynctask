@@ -17,24 +17,27 @@
  * along with 'EnhancedAsyncTask' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.etask.test;
+package net.iubris.etaskrobo.test;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
-public class TestTask extends AbstractRoboTestTask {
+public class TestRoboTask extends AbstractTestRoboTask {
 
-	protected TestTask(Context context) {
+	private int number;
+	
+	public TestRoboTask(Context context) {
 		super(context);
 	}
-	
-	private int number;
 
 	@Override
-	public String call() throws OddNumberException, EvenNumberException  {
+	public String call() throws GreaterThanFiftyException, OddNumberException, EvenNumberException  {
 		number = (int) Math.floor( (Math.random()*100) );
-		System.out.println(number);
+		Log.d("RoboTestTask","number: "+number);
+		if (number>50)
+			throw new GreaterThanFiftyException();
 		if (number%2 ==0) // even
 			throw new EvenNumberException();	
 		throw new OddNumberException();
@@ -50,19 +53,5 @@ public class TestTask extends AbstractRoboTestTask {
 		super.onException(e);
 		Toast.makeText(context, ""+number, Toast.LENGTH_SHORT).show();
 	}
-	
-	/*@Override
-	protected void onException(Exception e) throws RuntimeException {
-		super.onException(e);
-		Log.d("SC","e");
-	}*/
-	
-	//@Override
-	/*protected void onException(NumberFormatException e) throws RuntimeException {	
-		super.onException(e);
-//		System.out.println("nfe");
-		Log.d("SC","nfe");
-		Toast.makeText(context, "nfe",Toast.LENGTH_SHORT).show();
-	}*/
 
 }
