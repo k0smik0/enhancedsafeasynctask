@@ -42,10 +42,16 @@ extends RoboEnhancedAsyncTask<String> {
 		Toast.makeText(context, "EvenNumberException",Toast.LENGTH_SHORT).show();
 	}
 	
-	@Override
+	/*@Override
 	protected void onException(Exception arg0) throws RuntimeException {
 //		super.onException(arg0);
 		Log.d("AbstractRoboTestTask","Exception");
 		Toast.makeText(context, "Exception",Toast.LENGTH_SHORT).show();
+	}*/
+	@Override
+	protected void onGenericException(Exception arg0) throws RuntimeException {
+//		super.onException(arg0);
+		Log.d("AbstractRoboTestTask","GenericException");
+		Toast.makeText(context, "GenericException",Toast.LENGTH_SHORT).show();
 	}
 }

@@ -32,26 +32,35 @@ public abstract class EnhancedSafeAsyncTaskContexted<ResultT> extends EnhancedSa
 
 	protected Context context;
 
-    protected EnhancedSafeAsyncTaskContexted(Context context) {
-        this.context = context;
-    }
+	protected EnhancedSafeAsyncTaskContexted(Context context) {
+		this.context = context;
+	}
 
-    protected EnhancedSafeAsyncTaskContexted(Context context, Handler handler) {
-        super(handler);
-        this.context = context;
-    }
-    
-    protected EnhancedSafeAsyncTaskContexted(Context context, Executor executor) {
-        super(executor);
-        this.context = context;
-    }
+	protected EnhancedSafeAsyncTaskContexted(Context context, Handler handler) {
+		super(handler);
+		this.context = context;
+	}
+	
+	protected EnhancedSafeAsyncTaskContexted(Context context, Executor executor) {
+		super(executor);
+		this.context = context;
+	}
 
-    protected EnhancedSafeAsyncTaskContexted(Context context, Handler handler, Executor executor) {
-        super(handler, executor);
-        this.context = context;
-    }
+	protected EnhancedSafeAsyncTaskContexted(Context context, Handler handler, Executor executor) {
+		super(handler, executor);
+		this.context = context;
+	}
 
-    public Context getContext() {
-        return context;
-    }
+	public Context getContext() {
+		return context;
+	}
+
+	/**
+ 	 * printStackTrace() as default
+ 	 * @param e
+ 	 * @throws RuntimeException
+ 	 */
+ 	protected void onException(NullPointerException e) throws RuntimeException {
+ 		e.printStackTrace();
+ 	}
 }
