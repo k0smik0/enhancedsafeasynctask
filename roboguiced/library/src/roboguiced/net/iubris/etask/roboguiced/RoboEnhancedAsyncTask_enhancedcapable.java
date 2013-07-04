@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * RoboEnhancedAsyncTask.java is part of 'EnhancedSafeAsyncTask'.
+ * RoboEnhancedAsyncTask_enhancedcapable.java is part of 'EnhancedSafeAsyncTask'.
  * 
  * 'EnhancedSafeAsyncTask' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,9 +24,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
 
 import net.iubris.mirror.ExceptionDispatcher;
-
 import roboguice.util.RoboAsyncTask;
-
 import android.content.Context;
 import android.os.Handler;
 /**
@@ -37,20 +35,45 @@ import android.os.Handler;
  * 
  * @param <ResultT>
  */
-public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<ResultT> {
+public abstract class RoboEnhancedAsyncTask_enhancedcapable<ResultT> extends RoboAsyncTask<ResultT> {
 
-	protected RoboEnhancedAsyncTask(Context context, Executor executor) {
+	protected RoboEnhancedAsyncTask_enhancedcapable(Context context, Executor executor) {
 		super(context, executor);
 	}
-	protected RoboEnhancedAsyncTask(Context context, Handler handler, Executor executor) {
+	protected RoboEnhancedAsyncTask_enhancedcapable(Context context, Handler handler, Executor executor) {
 		super(context, handler, executor);
 	}
-	protected RoboEnhancedAsyncTask(Context context, Handler handler) {
+	protected RoboEnhancedAsyncTask_enhancedcapable(Context context, Handler handler) {
 		super(context, handler);
 	}
-	protected RoboEnhancedAsyncTask(Context context) {
+	protected RoboEnhancedAsyncTask_enhancedcapable(Context context) {
 		super(context);
-	}
+	}	
+	
+	
+	
+/*	
+	protected RoboEnhancedAsyncTask_enhancedcapable(Context context) {
+        super(context);
+        RoboGuice.getInjector(context).injectMembers(this);
+    }
+
+    protected RoboEnhancedAsyncTask_enhancedcapable(Context context, Handler handler) {
+        super(context,handler);
+        RoboGuice.getInjector(context).injectMembers(this);
+    }
+
+    protected RoboEnhancedAsyncTask_enhancedcapable(Context context, Handler handler, Executor executor) {
+        super(context,handler, executor);
+        RoboGuice.getInjector(context).injectMembers(this);
+    }
+
+    protected RoboEnhancedAsyncTask_enhancedcapable(Context context, Executor executor) {
+        super(context,executor);
+        RoboGuice.getInjector(context).injectMembers(this);
+    }
+    */
+
 	
 	@Override
 	protected final void onException(Exception e) throws RuntimeException {
@@ -58,33 +81,24 @@ public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<Resul
 		try {
 			if (m.isAccessible()) {
 				m.invoke(this, e);
-			} else {
-				m.setAccessible(true);
-				m.invoke(this, e);
-				m.setAccessible(false);
+				return;
 			}
+			m.setAccessible(true);
+			m.invoke(this, e);
+			m.setAccessible(false);
+			return;						
 		} catch (IllegalAccessException e1) {
+//			e1.printStackTrace();
 		} catch (InvocationTargetException e1) {
+//			e1.printStackTrace();
 		} catch (NullPointerException e1) {
-//			e.setStackTrace(Arrays.asList(e.getStackTrace()).add( new ArrayList<StackTraceElement>().add( e1.getStackTrace() )) );
-//			StackTraceElement[] eStack = e.getStackTrace();
-			StackTraceElement[] e1Stack = e1.getStackTrace();
-			e.setStackTrace(e1Stack);
 			onGenericException(e);
 		}
-	}
-	
-	/**
-	 * printStackTrace() as default
-	 * @param e
-	 * @throws RuntimeException
-	 */
-	protected void onException(NullPointerException e) throws RuntimeException {
-		e.printStackTrace();
 	}
 	
 	protected void onGenericException(Exception e) throws RuntimeException {
 		super.onException(e);
 	}
-
+	
+    
 }
