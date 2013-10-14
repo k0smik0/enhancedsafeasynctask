@@ -65,7 +65,7 @@ public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<Resul
 			}
 		} catch (IllegalAccessException e1) {
 		} catch (InvocationTargetException e1) {
-		} catch (NullPointerException e1) {
+		} catch (NullPointerException e1) { // m is null, because no one right onException is found: so, use onGenericException
 //			e.setStackTrace(Arrays.asList(e.getStackTrace()).add( new ArrayList<StackTraceElement>().add( e1.getStackTrace() )) );
 //			StackTraceElement[] eStack = e.getStackTrace();
 			StackTraceElement[] e1Stack = e1.getStackTrace();
