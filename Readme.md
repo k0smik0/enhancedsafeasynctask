@@ -28,7 +28,7 @@ RoboEnhancedAsyncTask, inheriting from EnhancedSafeAsyncTaskContexted
 *All is heavily inspired to <a href="http://code.google.com/p/asyncworks">asyncworks</a>*
 
          
-That's all, folkies ;D !
+That's all, folkies ;D.
 
  [1]: http://code.google.com/p/roboguice/source/browse/roboguice/src/main/java/roboguice/util/SafeAsyncTask.java
  [2]: http://developer.android.com/reference/android/content/Context.html
