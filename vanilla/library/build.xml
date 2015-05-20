@@ -11,10 +11,15 @@
 	<property name="docurl" value="https://github.com/k0smik0/enhancedsafeasynctask"/>
 	
 	
-	<property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk/"/>
-	<property name="android-sdk-target-version" value="17"/>
-		
-	<!-- don't touch below -->
+	<!-- change here with actual -->
+	<property name="android-sdk-target-version" value="22"/>
+	
+	<!--don't change below-->
+	<property environment="env" />
+	<condition property="sdk.dir" value="${env.ANDROID_HOME}">
+	  <isset property="env.ANDROID_HOME" />
+	</condition>
+	<property name="android-path" value="${sdk.dir}" />
 	
 	<property name="src.dir" value="src" />
 	<property name="build.dir" value="build" />	
@@ -48,7 +53,13 @@
 		<delete file="${jar-contexted.file}"/>
 	</target>
 	
-	<target name="clean" depends="clean-core, clean-contexted"/>	
+	<target name="clean" depends="clean-core, clean-contexted"/>
+	
+	<target name="get-real-dependencies">
+    <get dest="${libs-dir}">
+      <url url="https://github.com/k0smik0/mirroringexception/blob/master/build/jars/mirroringexception.jar?raw=true"/>
+    </get>
+  </target>	
 	
 	<target name="compile-core">
 		<mkdir dir="${build.dir}/classes/core"/>

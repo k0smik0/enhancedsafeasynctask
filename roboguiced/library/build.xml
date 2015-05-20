@@ -9,11 +9,17 @@
 	<property name="license.file" value="COPYING.txt"/>
 	<property name="license.url" value="http://www.gnu.org/licenses/lgpl.txt"/>
 	<property name="docurl" value="https://github.com/k0smik0/enhancedsafeasynctask"/>
+
+	<!-- change here with actual -->
+	<property name="android-sdk-target-version" value="22"/>	
 	
+	<!-- don't change below -->
+	<property environment="env" />
+	<condition property="sdk.dir" value="${env.ANDROID_HOME}">
+	  <isset property="env.ANDROID_HOME" />
+	</condition>
+	<property name="android-path" value="${sdk.dir}" />
 	
-	<property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk/" />
-	<property name="android-sdk-target-version" value="17"/>
-		
 	<property name="core-libs" value="libs" />
 	<property name="roboguice-libs" value="libs" />
 	
@@ -69,6 +75,17 @@
 			<classpath refid="classpath-core"/>
 		</javac>
 	</target-->
+	
+	<target name="get-real-dependencies">
+    <get dest="${libs-dir}">
+      <url url="https://github.com/k0smik0/mirroringexception/blob/master/build/jars/mirroringexception.jar?raw=true"/>
+    </get>
+    <get dest="${libs-dir}">
+      <url url="http://dependency-shot.googlecode.com/files/javax.inject.jar"/>
+      <url url="http://central.maven.org/maven2/org/sonatype/sisu/sisu-guice/3.2.0/sisu-guice-3.2.0.jar"/>
+      <url url="http://repo1.maven.org/maven2/org/roboguice/roboguice/2.0/roboguice-2.0.jar"/>
+    </get>
+  </target>
 	
 	<target name="compile-roboguiced" >		
 		<mkdir dir="${build.dir}/classes/roboguiced"/>

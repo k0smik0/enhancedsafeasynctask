@@ -33,7 +33,8 @@ import android.os.Handler;
  * This is "Enhanced" version of RoboAsyncTask.java<br/>
  * You need roboguice.jar, javax.inject.jar and guice-3.x-no_aop.jar in order to compile it 
  * (see <a href="http://code.google.com/p/roboguice">http://code.google.com/p/roboguice</a>) 
- * and mirroringexception.jar (see <a href="http://github.com/k0smik0/mirroringexception">https://github.com/k0smik0/mirroringexception</a>)
+ * and mirroringexception.jar (see 
+ * <a href="http://github.com/k0smik0/mirroringexception">https://github.com/k0smik0/mirroringexception</a>)
  * 
  * @param <ResultT>
  */
