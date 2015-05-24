@@ -24,7 +24,7 @@ import java.util.concurrent.Executor;
 import android.content.Context;
 import android.os.Handler;
 /**
- * Inspiring to roboguice's roboasynctask, this class add context support
+ * Inspiring to roboguice's roboasynctask, this class adds context support
  * @author k0smik0
  * @param <ResultT>
  */

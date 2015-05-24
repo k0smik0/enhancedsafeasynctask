@@ -25,7 +25,7 @@
 	<property name="build.dir" value="build" />	
 	
 	<property name="jar-core.file" value="${build.dir}/jars/enhancedsafeasynctask.jar" />
-	<property name="jar-contexted.file" value="${build.dir}/jars/enhancedsafeasynctask-contexted.jar" />
+	<!-- <property name="jar-contexted.file" value="${build.dir}/jars/enhancedsafeasynctask-contexted.jar" /> -->
 	<!--property name="jar-roboguiced.file" value="${build.dir}/jars/enhancedsafeasynctask-roboguiced.jar" /-->
 				
 	<path id="classpath-core">
@@ -48,12 +48,12 @@
 		<delete file="${jar-core.file}"/>
 	</target>
 	
-	<target name="clean-contexted">
+	<!-- <target name="clean-contexted">
 		<delete dir="${build.dir}/classes/contexted"/>
 		<delete file="${jar-contexted.file}"/>
-	</target>
+	</target> -->
 	
-	<target name="clean" depends="clean-core, clean-contexted"/>
+	<target name="clean" depends="clean-core"/>
 	
 	<target name="get-real-dependencies">
     <get dest="${libs-dir}">
@@ -71,7 +71,7 @@
 		</javac>
 	</target>
 	
-	<target name="compile-contexted" depends="jar-core">		
+	<!-- <target name="compile-contexted" depends="jar-core">		
 		<mkdir dir="${build.dir}/classes/contexted"/>
 		<javac destdir="${build.dir}/classes/contexted" includeantruntime="false">
 			<src path="${src.dir}/contexted" />
@@ -79,7 +79,7 @@
 			<classpath refid="classpath-core"/>
 			<classpath refid="classpath-contexted"/>			
 		</javac>
-	</target>
+	</target> -->
 	
 	<target name="jar-core" depends="clean-core, compile-core">
 		<mkdir dir="${build.dir}/jars/"/>
@@ -97,7 +97,7 @@
 		</jar>
 	</target>
 	
-	<target name="jar-contexted" depends="clean-contexted, compile-contexted">
+	<!-- <target name="jar-contexted" depends="clean-contexted, compile-contexted">
 		<mkdir dir="${build.dir}/jars/"/>
 		<jar destfile="${jar-contexted.file}" basedir="${build.dir}/classes/contexted">
 			<manifest>
@@ -111,7 +111,7 @@
 			</manifest>			
 			<metainf dir="." includes="${license.file}"/>
 		</jar>
-	</target>
+	</target> -->
 	
-	<target name="jars" depends="jar-core, jar-contexted"/>
+	<target name="jars" depends="jar-core"/>
 </project>
