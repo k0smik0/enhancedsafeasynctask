@@ -263,7 +263,7 @@ public abstract class EnhancedSafeAsyncTask<ResultT> implements Callable<ResultT
                 e.setStackTrace(stack.toArray(new StackTraceElement[stack.size()]));
             }
             
-            // the improvement invoke bestMatchedMethod
+            // the improvement invokes bestMatchedMethod
             postToUiThreadAndWait( new Callable<Void>() {
             	public Void call() throws Exception {
                     if( e instanceof InterruptedException || e instanceof InterruptedIOException )

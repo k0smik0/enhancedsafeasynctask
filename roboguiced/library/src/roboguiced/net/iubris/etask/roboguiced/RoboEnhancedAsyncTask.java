@@ -40,17 +40,23 @@ import android.os.Handler;
  */
 public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<ResultT> {
 
+	protected final Context context;
+	
 	protected RoboEnhancedAsyncTask(Context context, Executor executor) {
 		super(context, executor);
+		this.context = context;
 	}
 	protected RoboEnhancedAsyncTask(Context context, Handler handler, Executor executor) {
 		super(context, handler, executor);
+		this.context = context;
 	}
 	protected RoboEnhancedAsyncTask(Context context, Handler handler) {
 		super(context, handler);
+		this.context = context;
 	}
 	protected RoboEnhancedAsyncTask(Context context) {
 		super(context);
+		this.context = context;
 	}
 	
 	@Override
@@ -87,5 +93,4 @@ public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<Resul
 	protected void onGenericException(Exception e) throws RuntimeException {
 		super.onException(e);
 	}
-
 }
