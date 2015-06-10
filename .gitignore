@@ -1,0 +1,6 @@
+**/*/bin/**/*
+**/*gen**/*
+roboguiced/sample/libs/*jar
+roboguiced/library/libs/*jar
+vanilla/library/libs/*jar
+vanilla/sample/libs/*jar
