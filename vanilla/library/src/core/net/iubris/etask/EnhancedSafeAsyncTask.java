@@ -71,6 +71,9 @@ import android.util.Log;
  * @param <ResultT>
  */
 public abstract class EnhancedSafeAsyncTask<ResultT> implements Callable<ResultT> {
+	
+	protected static int MAX_SEARCH_RIGHT_EXCEPTION_TRY = 5;
+	
     public static final int DEFAULT_POOL_SIZE = 25;
     protected static final Executor DEFAULT_EXECUTOR = Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
 
@@ -269,7 +272,7 @@ public abstract class EnhancedSafeAsyncTask<ResultT> implements Callable<ResultT
                     if( e instanceof InterruptedException || e instanceof InterruptedIOException )
                         parent.onInterrupted(e);
                     else {
-                    	Method bestMatchedMethod = ExceptionDispatcher.findBestMatchException(e, parent, "onException");
+                    	Method bestMatchedMethod = ExceptionDispatcher.findBestMatchException(e, parent, "onException", 0, MAX_SEARCH_RIGHT_EXCEPTION_TRY);
                     	if (bestMatchedMethod!=null) {
 							if (!(bestMatchedMethod.isAccessible())) {
 		                        bestMatchedMethod.setAccessible(true);

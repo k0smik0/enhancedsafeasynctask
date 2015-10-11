@@ -41,6 +41,7 @@ import android.os.Handler;
 public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<ResultT> {
 
 	protected final Context context;
+	protected static int MAX_SEARCH_RIGHT_EXCEPTION_TRY = 5;
 	
 	protected RoboEnhancedAsyncTask(Context context, Executor executor) {
 		super(context, executor);
@@ -61,7 +62,7 @@ public abstract class RoboEnhancedAsyncTask<ResultT> extends RoboAsyncTask<Resul
 	
 	@Override
 	protected final void onException(Exception e) throws RuntimeException {
-		Method m = ExceptionDispatcher.findBestMatchException(e, this, "onException");
+		Method m = ExceptionDispatcher.findBestMatchException(e, this, "onException", 0, MAX_SEARCH_RIGHT_EXCEPTION_TRY);
 		try {
 			if (m.isAccessible()) {
 				m.invoke(this, e);
